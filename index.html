@@ -162,6 +162,26 @@ ul.task-list li input[type="checkbox"] {
 <p><img src="https://live.staticflickr.com/6150/5935882923_5ec6a3566e_m.jpg" class="img-fluid quarto-figure quarto-figure-right figure-img" width="400"></p>
 </figure>
 </div>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<section id="list-one" class="level3 quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<h3 class="anchored" data-anchor-id="list-one">List One</h3>
+<ul>
+<li>Item A</li>
+<li>Item B</li>
+<li>Item C</li>
+</ul>
+</section>
+<section id="list-two" class="level3 quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<h3 class="anchored" data-anchor-id="list-two">List Two</h3>
+<ul>
+<li>Item X</li>
+<li>Item Y</li>
+<li>Item Z</li>
+</ul>
+</section>
+</div>
+</div>
 
 
 </section>
@@ -239,7 +259,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/yujia-zhu\.github\.io\/SIB-course\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
