@@ -1,12 +1,5 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "SIB_Course",
-    "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\nIntroduction\nIn this project we aim to visualize the trends of the most frequently used babynames from 1880 to 2017 in the United States. We do this by:\n\nUnderstanding the different columns of the data set\nFind the top 10 most frequently used baby names in the data for:\n\ngirls\nboys\n\nPlot the yearly trend of the top 10 baby names\n\n\n\n\n\n\n\n\n\nList One\n\nItem A\nItem B\nItem C\n\n\n\nList Two\n\nItem X\nItem Y\nItem Z"
-  },
-  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
@@ -19,5 +12,12 @@
     "title": "analysis",
     "section": "",
     "text": "Load libraries\n\nlibrary(babynames)\nlibrary(knitr)\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(tidyr)\nlibrary(pheatmap)\n\nDisplay the first 10 lines of the babynames table\n\nhead(babynames) |&gt; kable()\n\n\n\n\nyear\nsex\nname\nn\nprop\n\n\n\n\n1880\nF\nMary\n7065\n0.0723836\n\n\n1880\nF\nAnna\n2604\n0.0266790\n\n\n1880\nF\nEmma\n2003\n0.0205215\n\n\n1880\nF\nElizabeth\n1939\n0.0198658\n\n\n1880\nF\nMinnie\n1746\n0.0178884\n\n\n1880\nF\nMargaret\n1578\n0.0161672\n\n\n\n\n\nDefine functions\n\n\nCode\nget_most_frequent &lt;- function(babynames, select_sex, from = 1950) {\n  most_freq &lt;- babynames |&gt;\n    filter(sex == select_sex, year &gt; from) |&gt;\n    group_by(name) |&gt;\n    summarise(average = mean(prop)) |&gt;\n    arrange(desc(average))\n    \n  return(list(\n    babynames = babynames,\n    most_frequent = most_freq,\n    sex = select_sex,\n    from = from))\n}\n\nplot_top &lt;- function(x, top = 10) {\n  topx &lt;- x$most_frequent$name[1:top]\n  \n  p &lt;- x$babynames |&gt;\n    filter(name %in% topx, sex == x$sex, year &gt; x$from) |&gt;\n    ggplot(aes(x = year, y = prop, color = name)) +\n    geom_line() +\n    scale_color_brewer(palette = \"Paired\") +\n    theme_classic()\n  \n  return(p)\n}\n\n\nThe top 10 most frequent names for girls from 1950 are shown in Figure 1.\n\nget_most_frequent(babynames, select_sex = \"F\") |&gt;\n  plot_top()\n\n\n\n\n\n\n\nFigure 1: Popular girl names from 1950\n\n\n\n\n\nThe top 10 most frequent names for boys from 1950 are shown in Figure 2.\n\nget_most_frequent(babynames, select_sex = \"M\") |&gt;\n  plot_top()\n\n\n\n\n\n\n\nFigure 2: Popular boy names from 1950\n\n\n\n\n\nPlots of top girl names from 2010\n#| fig-cap: \"Plots\"\n#| fig-subcap:\n#|   - \"Line plot of top 5 girl names from 2010 onwards\"\n#|   - \"Line plot of top 10 girl names from 2010 onwards\"\n#|   - \"Heatmap of top 30 girl names from 2010 onwards\"\n\n# get most frequent girl names from 2010 onwards\nfrom_year &lt;- 2010\nmost_freq_girls &lt;- get_most_frequent(babynames, select_sex = \"F\",\n                                     from = from_year)\n\n# plot top 5 girl names\nmost_freq_girls |&gt;\n  plot_top(top = 5)\n\n# plot top 10 girl names\nmost_freq_girls |&gt;\n  plot_top(top = 10)\n\n# get top 30 girl names in a matrix\n# with names in rows and years in columns\nprop_df &lt;- babynames |&gt; \n  filter(name %in% most_freq_girls$most_frequent$name[1:30] & sex == \"F\") |&gt;\n  filter(year &gt;= from_year) |&gt; \n  select(year, name, prop) |&gt;\n  pivot_wider(names_from = year,\n              values_from = prop)\n\nprop_mat &lt;- as.matrix(prop_df[, 2:ncol(prop_df)])\nrownames(prop_mat) &lt;- prop_df$name\n\n# create heatmap\npheatmap(prop_mat, cluster_cols = FALSE, scale = \"row\")\n\n\n\n\n\n\n\n\n\nFigure 3\n\n\n\n\n\n\n\n\n\n\n\nFigure 4\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 5\n\n\n\n\n\n\nIn Figure 3 and Figure 4 the line plots are shown. To view trends of many names at once, Figure 5 displays a heatmap."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "SIB_Course",
+    "section": "",
+    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\nIntroduction\nIn this project we aim to visualize the trends of the most frequently used babynames from 1880 to 2017 in the United States. We do this by:\n\nUnderstanding the different columns of the data set\nFind the top 10 most frequently used baby names in the data for:\n\ngirls\nboys\n\nPlot the yearly trend of the top 10 baby names\n\n\n\n\n\n\n\n\n\nList One\n\nItem A\nItem B\nItem C\n\n\n\nList Two\n\nItem X\nItem Y\nItem Z"
   }
 ]

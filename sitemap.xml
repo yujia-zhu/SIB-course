@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://yujia-zhu.github.io/SIB-course/index.html</loc>
-    <lastmod>2025-07-08T12:25:33.933Z</lastmod>
-  </url>
-  <url>
     <loc>https://yujia-zhu.github.io/SIB-course/about.html</loc>
-    <lastmod>2025-07-08T12:05:05.214Z</lastmod>
+    <lastmod>2025-07-08T13:00:28.824Z</lastmod>
   </url>
   <url>
     <loc>https://yujia-zhu.github.io/SIB-course/analysis.html</loc>
-    <lastmod>2025-07-08T12:39:25.793Z</lastmod>
+    <lastmod>2025-07-08T13:00:28.824Z</lastmod>
+  </url>
+  <url>
+    <loc>https://yujia-zhu.github.io/SIB-course/index.html</loc>
+    <lastmod>2025-07-08T13:00:28.824Z</lastmod>
   </url>
 </urlset>
