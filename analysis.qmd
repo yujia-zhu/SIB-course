@@ -3,6 +3,7 @@ title: "analysis"
 ---
 
 Load libraries
+
 ```{r}
 #| output: false
 library(babynames)
@@ -14,11 +15,13 @@ library(pheatmap)
 ```
 
 Display the first 10 lines of the `babynames` table
+
 ```{r}
 head(babynames) |> kable()
 ```
 
 Define functions
+
 ```{r}
 #| code-fold: true
 get_most_frequent <- function(babynames, select_sex, from = 1950) {
@@ -67,6 +70,45 @@ get_most_frequent(babynames, select_sex = "M") |>
   plot_top()
 ```
 
+Plots of top girl names from 2010
 
+```{r}
+#| label: fig-plots
+#| layout: [[50,50], [100]]
 
+#| fig-cap: "Plots"
+#| fig-subcap:
+#|   - "Line plot of top 5 girl names from 2010 onwards"
+#|   - "Line plot of top 10 girl names from 2010 onwards"
+#|   - "Heatmap of top 30 girl names from 2010 onwards"
 
+# get most frequent girl names from 2010 onwards
+from_year <- 2010
+most_freq_girls <- get_most_frequent(babynames, select_sex = "F",
+                                     from = from_year)
+
+# plot top 5 girl names
+most_freq_girls |>
+  plot_top(top = 5)
+
+# plot top 10 girl names
+most_freq_girls |>
+  plot_top(top = 10)
+
+# get top 30 girl names in a matrix
+# with names in rows and years in columns
+prop_df <- babynames |> 
+  filter(name %in% most_freq_girls$most_frequent$name[1:30] & sex == "F") |>
+  filter(year >= from_year) |> 
+  select(year, name, prop) |>
+  pivot_wider(names_from = year,
+              values_from = prop)
+
+prop_mat <- as.matrix(prop_df[, 2:ncol(prop_df)])
+rownames(prop_mat) <- prop_df$name
+
+# create heatmap
+pheatmap(prop_mat, cluster_cols = FALSE, scale = "row")
+```
+
+In @fig-plots-1 and @fig-plots-2 the line plots are shown. To view trends of many names at once, @fig-plots-3 displays a heatmap.
