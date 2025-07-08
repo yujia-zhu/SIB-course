@@ -9,14 +9,13 @@ website:
         text: Home
       - about.qmd
       - analysis.qmd
+      - href: interactive_compute.qmd
+        text: static interactive compute
 
 format:
   html:
     theme:
-      - cosmo
-      - brand
+      light: flatly
+      dark: darkly
     css: styles.css
     toc: true
-
-editor: visual
-

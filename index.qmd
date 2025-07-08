@@ -2,6 +2,8 @@
 title: "SIB_Course"
 ---
 
+[![DOI](https://zenodo.org/badge/1016040734.svg)](https://doi.org/10.5281/zenodo.15837956)
+
 This is a Quarto website.
 
 To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
