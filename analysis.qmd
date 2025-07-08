@@ -1,0 +1,72 @@
+---
+title: "analysis"
+---
+
+Load libraries
+```{r}
+#| output: false
+library(babynames)
+library(knitr)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(pheatmap)
+```
+
+Display the first 10 lines of the `babynames` table
+```{r}
+head(babynames) |> kable()
+```
+
+Define functions
+```{r}
+#| code-fold: true
+get_most_frequent <- function(babynames, select_sex, from = 1950) {
+  most_freq <- babynames |>
+    filter(sex == select_sex, year > from) |>
+    group_by(name) |>
+    summarise(average = mean(prop)) |>
+    arrange(desc(average))
+    
+  return(list(
+    babynames = babynames,
+    most_frequent = most_freq,
+    sex = select_sex,
+    from = from))
+}
+
+plot_top <- function(x, top = 10) {
+  topx <- x$most_frequent$name[1:top]
+  
+  p <- x$babynames |>
+    filter(name %in% topx, sex == x$sex, year > x$from) |>
+    ggplot(aes(x = year, y = prop, color = name)) +
+    geom_line() +
+    scale_color_brewer(palette = "Paired") +
+    theme_classic()
+  
+  return(p)
+}
+```
+
+The top 10 most frequent names for girls from 1950 are shown in @fig-girl-names.
+
+```{r}
+#| label: fig-girl-names
+#| fig-cap: "Popular girl names from 1950"
+get_most_frequent(babynames, select_sex = "F") |>
+  plot_top()
+```
+
+The top 10 most frequent names for boys from 1950 are shown in @fig-boy-names.
+
+```{r}
+#| label: fig-boy-names
+#| fig-cap: "Popular boy names from 1950"
+get_most_frequent(babynames, select_sex = "M") |>
+  plot_top()
+```
+
+
+
+
